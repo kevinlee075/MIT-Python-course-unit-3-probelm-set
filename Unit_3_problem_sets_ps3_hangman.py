@@ -50,13 +50,14 @@ def isWordGuessed(secretWord, lettersGuessed):
     returns: boolean, True if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-    count = 0
-    for i in secretWord:
-        if i in lettersGuessed:
-            count += 1
+    count = 0 #initial count is assigned to 0
+    for i in secretWord: #check every letter in secretWord
+        if i in lettersGuessed: #if a letter in secretWord is also in the list
+            count += 1 #add one count and check the next letter in secretWord
         else:
-            return False
-    if count == len(secretWord):
+            return False #When any letter in secretWord is not in lettersGuessed, the answer is False
+    if count == len(secretWord): #Finally check if counts are equal to the length of secretWord.
+    #If yes, it means that the list contains all letters in secretWord and the answer is True
         return True
 
 
