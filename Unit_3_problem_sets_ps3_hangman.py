@@ -113,8 +113,10 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE...
-
+    print('Welcome to the game Hangman!')
+    print('I am thinking of a word that is ' + str(len(chooseWord(wordlist))) + ' letters long.')
+    n = 8
+    for 
 
 
 
