@@ -93,7 +93,7 @@ def getAvailableLetters(lettersGuessed):
             result += i #add that letter to the result
     return result #return the fianl answer
 
-secretWord = chooseWord(wordlist).lower()
+secretWord = chooseWord(wordlist).lower() #make my computer pick one word in the file'word.txt' randomly
 def hangman(secretWord):
     '''
     secretWord: string, the secret word to guess.
@@ -116,36 +116,37 @@ def hangman(secretWord):
     '''
     print('Welcome to the game Hangman!')
     print('I am thinking of a word that is ' + str(len(secretWord)) + ' letters long.\n' + '-----------')
-    mistakesMade = 0
-    lettersGuessed = []
-    while mistakesMade <= 8:
-        chances = 8 - mistakesMade
-        print('You have ' + str(chances) + ' guesses left.')
-        availableLetters = getAvailableLetters(lettersGuessed)
-        print('Available letters: ' + availableLetters)
+    #Initially, my computer should let me know how many characters this word has
+    mistakesMade = 0 #Initially, no mistakes are made
+    lettersGuessed = [] #Initially, the list of lettersGuessed has no words
+    while mistakesMade <= 8: #I totally have 8 chances
+        chances = 8 - mistakesMade #Every time when I make a mistake, I will lose one chance
+        print('You have ' + str(chances) + ' guesses left.') #Let me know how many chances I still have
+        availableLetters = getAvailableLetters(lettersGuessed) #Use the getAvailableLetters function to present availableLetters
+        print('Available letters: ' + availableLetters) #Print availableLetters
         print('Please guess a letter: ', end = '')
-        guess = str(input(''))
-        guessInLowerCase = guess.lower()
-        if guessInLowerCase in lettersGuessed:
+        guess = str(input('')) #Make the user starts a guess with one character every time
+        guessInLowerCase = guess.lower() #If the input character is not lowercase, the computer should change it automatically
+        if guessInLowerCase in lettersGuessed: #First check whether this character is in the letterGuessed list
             print("Oops! You've already guessed that letter: " + getGuessedWord(secretWord, lettersGuessed))
-            print('-----------')
-        else:
-            if guessInLowerCase in secretWord:
-                lettersGuessed.append(guessInLowerCase)
-                print('Good guess: ' + getGuessedWord(secretWord, lettersGuessed))
+            print('-----------') #If yes, print this sentence to let the user know they can guess other characters without losing one chance
+        else: #Then, check whether the character is in the word which my computer selects
+            if guessInLowerCase in secretWord: #If yes, do the following things
+                lettersGuessed.append(guessInLowerCase) #Add this character to the list
+                print('Good guess: ' + getGuessedWord(secretWord, lettersGuessed)) #Let the user know he does a right guess, and they still have some characters to guess
                 print('-----------')
                 if isWordGuessed(secretWord, lettersGuessed) == True:
-                    break
+                    break #Use the isWordGuessed function to examine whether all characters are guessed. If yes, the while loop can be broken out
             else:
-                mistakesMade += 1
-                lettersGuessed.append(guessInLowerCase)
+                mistakesMade += 1 #If the user makes a wrong guess, the mistakesMade will increase
+                lettersGuessed.append(guessInLowerCase) #Also add this character to the list
                 print('Oops! That letter is not in my word: ' + getGuessedWord(secretWord, lettersGuessed))
-                print('-----------')
-                if mistakesMade == 8:
+                print('-----------') #Let the user know he does a wrong guess, and there are still some empty places in the secretWord
+                if mistakesMade == 8: #If the user does 8 mistakes, the loop will also be finished
                     break
     if isWordGuessed(secretWord, lettersGuessed) == True:
-        return print('Congratulations, you won!')
-    else:
+        return print('Congratulations, you won!') #Use the isWordGuessed function. If the return is True, it means that the user wins the game!
+    else: #If the return is False, it means that the user loses the game @@
         return print('Sorry, you ran out of guesses. The word was else.')
     
 hangman(secretWord)
