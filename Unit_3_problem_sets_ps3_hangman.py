@@ -116,28 +116,36 @@ def hangman(secretWord):
     '''
     print('Welcome to the game Hangman!')
     print('I am thinking of a word that is ' + str(len(secretWord)) + ' letters long.\n' + '-----------')
-    
-    n = 8
-    print('You have ' + str(n) + ' guesses left.')
+    mistakesMade = 0
     lettersGuessed = []
-    availableLetters = getAvailableLetters(lettersGuessed)
-    print('Available letters: ', end = ' ')
-    guess = str(input(''))
-    guessInLowerCase = guess.lower()
-    if guessInLowerCase in lettersGuessed:
-        print("Oops! You've already guessed that letter: ", + getGuessedWord(secretWord, lettersGuessed))
+    while mistakesMade <= 8:
+        chances = 8 - mistakesMade
+        print('You have ' + str(chances) + ' guesses left.')
+        availableLetters = getAvailableLetters(lettersGuessed)
+        print('Available letters: ' + availableLetters)
+        print('Please guess a letter: ', end = '')
+        guess = str(input(''))
+        guessInLowerCase = guess.lower()
+        if guessInLowerCase in lettersGuessed:
+            print("Oops! You've already guessed that letter: " + getGuessedWord(secretWord, lettersGuessed))
+            print('-----------')
+        else:
+            if guessInLowerCase in secretWord:
+                lettersGuessed.append(guessInLowerCase)
+                print('Good guess: ' + getGuessedWord(secretWord, lettersGuessed))
+                print('-----------')
+                if isWordGuessed(secretWord, lettersGuessed) == True:
+                    break
+            else:
+                mistakesMade += 1
+                lettersGuessed.append(guessInLowerCase)
+                print('Oops! That letter is not in my word: ' + getGuessedWord(secretWord, lettersGuessed))
+                print('-----------')
+                if mistakesMade == 8:
+                    break
+    if isWordGuessed(secretWord, lettersGuessed) == True:
+        return print('Congratulations, you won!')
     else:
-        
+        return print('Sorry, you ran out of guesses. The word was else.')
     
-    
-
-
-
-
-
-# When you've completed your hangman function, uncomment these two lines
-# and run this file to test! (hint: you might want to pick your own
-# secretWord while you're testing)
-
-# secretWord = chooseWord(wordlist).lower()
-# hangman(secretWord)
+hangman(secretWord)
