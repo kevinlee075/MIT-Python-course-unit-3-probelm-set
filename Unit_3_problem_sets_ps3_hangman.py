@@ -93,6 +93,7 @@ def getAvailableLetters(lettersGuessed):
             result += i #add that letter to the result
     return result #return the fianl answer
 
+secretWord = chooseWord(wordlist).lower()
 def hangman(secretWord):
     '''
     secretWord: string, the secret word to guess.
@@ -114,9 +115,21 @@ def hangman(secretWord):
     Follows the other limitations detailed in the problem write-up.
     '''
     print('Welcome to the game Hangman!')
-    print('I am thinking of a word that is ' + str(len(chooseWord(wordlist))) + ' letters long.')
+    print('I am thinking of a word that is ' + str(len(secretWord)) + ' letters long.\n' + '-----------')
+    
     n = 8
-    for 
+    print('You have ' + str(n) + ' guesses left.')
+    lettersGuessed = []
+    availableLetters = getAvailableLetters(lettersGuessed)
+    print('Available letters: ', end = ' ')
+    guess = str(input(''))
+    guessInLowerCase = guess.lower()
+    if guessInLowerCase in lettersGuessed:
+        print("Oops! You've already guessed that letter: ", + getGuessedWord(secretWord, lettersGuessed))
+    else:
+        
+    
+    
 
 
 
